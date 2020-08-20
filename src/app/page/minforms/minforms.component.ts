@@ -68,9 +68,11 @@ export class MinformsComponent implements OnInit, OnDestroy {
   validateEmail() {
     this.communicatorService.validateEmail(this.email)
       .subscribe((response: any) => {
-        if (response != null ) {
-          this.alertService.error(response.email, {autoClose: 3000});
+        if (response == null ) {
+          this.alertService.success('Email no tiene errores', {autoClose: 3000});
         }
+      },(responseError)=>{
+        this.alertService.error(responseError.error.email, {autoClose: 3000});
       });
   }
 
@@ -89,7 +91,7 @@ export class MinformsComponent implements OnInit, OnDestroy {
 
 
   saveTable() {
-    this.registers.push({email:this.email, optionNumber: this.selectOption.code, optionAplha:((this.optionsAlpha != null) ? this.optionsAlpha.code : null)})
+    this.registers.push({email:this.email, optionNumber: this.selectOption.code, optionAplha:((this.selectOptionAlpha != null) ? this.selectOptionAlpha.code : null)})
     this.communicatorService.setTable(this.registers)
   }
 }

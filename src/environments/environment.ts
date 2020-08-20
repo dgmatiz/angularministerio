@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   urlPHP: 'api/'
-  //urlPHP: 'http://localhost:8000/api/'
+  //urlPHP: 'http://localhost:8000/ai/'
 };
 
 /*
