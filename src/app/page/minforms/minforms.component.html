@@ -1,0 +1,60 @@
+<div class="p-card">
+  <p-panel>
+    <div class="p-fluid p-grid">
+      <div class="p-field p-col-12">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-inbox"></i>
+            </span>
+          <span class="p-float-label">
+                <input type="text" id="inputgroup" pInputText [(ngModel)]="email" (change)="validateEmail()">
+                <label for="inputgroup">Email</label>
+            </span>
+        </div>
+      </div>
+      <div class="p-field p-col-12">
+          <span class="p-float-label">
+            <p-dropdown inputId="dropdown" id="optionsNumber"
+                        [autoDisplayFirst]="false"
+                        [options]="optionsNumber"
+                        [(ngModel)]="selectOption"
+                        (onChange)="loadSelect()"
+                        optionLabel="name"></p-dropdown>
+            <label for="optionsNumber">Choose Option Number</label>
+          </span>
+      </div>
+      <div class="p-field p-col-12">
+          <span class="p-float-label">
+            <p-dropdown inputId="dropdown" id="optionsAlpha"
+                        [autoDisplayFirst]="false"
+                        [options]="optionsAlpha"
+                        [(ngModel)]="selectOptionAlpha"
+                        optionLabel="name"></p-dropdown>
+            <label for="optionsNumber">Choose Alpha</label>
+          </span>
+      </div>
+      <div class="p-field p-col-4">
+        <p-button label="Submit" icon="pi pi-check" (click)="saveTable()"></p-button>
+
+      </div>
+      <div class="p-field p-col-12">
+        <p-table [columns]="cols" [value]="registers">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-panel>
+</div>

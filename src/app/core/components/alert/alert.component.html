@@ -1,0 +1,6 @@
+<div *ngIf="state" class="widtAlert">
+  <div *ngFor="let alert of alerts"  @beginState class="{{cssClass(alert)}}">
+    <a class="close p-toast-icon-close" (click)="removeAlert(alert)"></a>
+    <span [innerHTML]="alert.message"></span>
+  </div>
+</div>
