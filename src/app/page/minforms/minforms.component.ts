@@ -5,6 +5,7 @@ import {AlertService} from '../../services/alert.service';
 import {CommunicatorService} from '../../services/communicator.service';
 import {OptionsSelect, TypeOption} from '../../core/model/option-select';
 import {ResponseValidation} from '../../core/model/response-validation';
+import {Dataforms} from '../../core/model/dataforms';
 
 
 @Component({
@@ -91,7 +92,22 @@ export class MinformsComponent implements OnInit, OnDestroy {
 
 
   saveTable() {
-    this.registers.push({email:this.email, optionNumber: this.selectOption.code, optionAplha:((this.selectOptionAlpha != null) ? this.selectOptionAlpha.code : null)})
-    this.communicatorService.setTable(this.registers)
+    let data:Dataforms = {
+      email:this.email,
+      selectnumber:this.selectOptionNumber,
+      selectalpha:this.selectOptionAlpha.code
+    }
+
+    this.communicatorService.validateForms(data).subscribe( response =>{
+      if(response == null){
+        this.registers.push({email:this.email, optionNumber: this.selectOption.code, optionAplha:((this.selectOptionAlpha != null) ? this.selectOptionAlpha.code : null)})
+        this.communicatorService.setTable(this.registers)
+        this.alertService.success('Se registro perfectamente', {autoClose: 3000});
+      }
+    },(responseError)=>{
+      let msgError = responseError.error.email + responseError.error.selectnumber + responseError.error.selectalpha
+      this.alertService.error(msgError, {autoClose: 3000});
+    })
   }
+
 }

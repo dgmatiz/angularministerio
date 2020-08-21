@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {isNotNullOrUndefined} from 'codelyzer/util/isNotNullOrUndefined';
+import {Dataforms} from '../core/model/dataforms';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,13 @@ export class CommunicatorService {
 
   validateEmail(email) {
     let data = {
-      "email": email
+      'email': email
     };
-    return this.httpClient.post(environment.urlPHP + 'verify-email', data, { headers: this.header});
+    return this.httpClient.post(environment.urlPHP + 'verify-email', data, {headers: this.header});
   }
 
   getSelectAplha() {
-    return this.httpClient.get(environment.urlPHP + 'select-alpha', { headers: this.header});
+    return this.httpClient.get(environment.urlPHP + 'select-alpha', {headers: this.header});
   }
 
   setTable(table) {
@@ -38,5 +39,9 @@ export class CommunicatorService {
     } else {
       return [];
     }
+  }
+
+  validateForms(data: Dataforms) {
+    return this.httpClient.post(environment.urlPHP + 'validate-forms', data,{headers: this.header})
   }
 }
