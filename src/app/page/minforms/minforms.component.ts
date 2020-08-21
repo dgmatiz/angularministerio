@@ -38,6 +38,8 @@ export class MinformsComponent implements OnInit, OnDestroy {
       .subscribe((result:number) => {
         if(result == 1){
           this.loadItemsAlpha()
+        }else{
+          this.optionsAlpha = null;
         }
       });
   }
@@ -105,7 +107,9 @@ export class MinformsComponent implements OnInit, OnDestroy {
         this.alertService.success('Se registro perfectamente', {autoClose: 3000});
       }
     },(responseError)=>{
-      let msgError = responseError.error.email + responseError.error.selectnumber + responseError.error.selectalpha
+      let msgError = responseError.error.email +
+        ((responseError.error.selectnumber != undefined)? responseError.error.selectnumber : '') +
+        ((responseError.error.selectalpha != undefined)? responseError.error.selectalpha : '')
       this.alertService.error(msgError, {autoClose: 3000});
     })
   }
